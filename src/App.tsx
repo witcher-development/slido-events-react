@@ -1,11 +1,12 @@
-import { EventsModule } from "src/modules/events"
+import { EventsModule } from 'src/modules/events'
 
-function App() {
-  const list = EventsModule.useEventsPreview()
-  return (
-    <div>
-    </div>
-  )
+
+const App = () => {
+    const list = EventsModule.useEventsPreview()
+    return (
+        <div>
+        </div>
+    )
 }
 
 export default App
