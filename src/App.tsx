@@ -7,7 +7,7 @@ import { EventsComponents } from 'src/modules/events'
 
 const App = () => {
     return (
-        <div className="font-sans" style={{background: "hsl(0, 0%, 97%)" }}>
+        <div className="font-sans">
             <Layout>
                 <EventsComponents.List />
                 <EventsComponents.CreateForm />
