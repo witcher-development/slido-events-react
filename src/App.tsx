@@ -10,6 +10,7 @@ const App = () => {
         <div className="font-sans text-3xl">
             <Layout>
                 <EventsComponents.List />
+                <EventsComponents.CreateForm />
             </Layout>
         </div>
     )
