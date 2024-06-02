@@ -1,5 +1,6 @@
 import { PropsWithChildren } from "react"
 import Logo from 'src/assets/logo.svg?react'
+import { Drawer } from "./Drawer"
 
 
 export const Layout = ({ children }: PropsWithChildren) => {
@@ -16,6 +17,8 @@ export const Layout = ({ children }: PropsWithChildren) => {
             <main className="container mx-auto max-w-screen-sm">
                 {children}
             </main>
+
+            <Drawer />
         </div>
     )
 }

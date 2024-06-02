@@ -1,6 +1,6 @@
 import './reset.css'
 
-import { Layout } from 'src/components'
+import { Layout, Drawer } from 'src/components'
 
 import { EventsComponents } from 'src/modules/events'
 
@@ -11,6 +11,7 @@ const App = () => {
             <Layout>
                 <EventsComponents.List />
                 <EventsComponents.CreateForm />
+                <Drawer />
             </Layout>
         </div>
     )

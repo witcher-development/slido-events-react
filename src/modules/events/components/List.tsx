@@ -1,12 +1,20 @@
-import { useState } from 'react'
+import { produce } from 'immer'
+import { createPortal } from 'react-dom'
 import BackgroundPlaceholder from 'src/assets/event_placeholder_white_transparent.png'
 import { Text  } from 'src/components'
-import { Drawer } from 'src/components/Drawer'
 import { EventsModule } from "src/modules/events"
+import { Store } from 'src/store'
 
 
 export const List = () => {
-    const [open, setOpen] = useState(false)
+    const [store, setStore] = Store.use()
+    const setEvent = (eventId: number) => {
+        console.log('DRAWER CLOSE')
+        setStore(produce(store, draft => {
+            draft.drawer = String(eventId)
+        }))
+    }
+
     const list = EventsModule.useEventsPreview()
     return (
         <ul className="flex flex-col gap-8">
@@ -14,12 +22,15 @@ export const List = () => {
                 <li 
                     key={id}
                     className="shadow-lg rounded-lg overflow-hidden"
-                    onClick={() => !open && setOpen(true)}
                 >
                     <img src={background || BackgroundPlaceholder} alt="Event background" className="object-contain h-64 w-full" />
                     <div className="bg-white p-4">
                         <Text type="h3" className="pb-2">
-                            <a href={`#${id}`} className='hover:text-green-400 transition'>
+                            <a
+                                // href={`#${id}`}
+                                className='hover:text-green-400 transition'
+                                onClick={() => setEvent(id)}
+                            >
                                 {title}
                             </a>
                         </Text>
@@ -28,11 +39,12 @@ export const List = () => {
                     </div>
                 </li>
             ))}
-            <Drawer open={open} onClose={() => setOpen(false)}>
+            {store.drawer && createPortal(
                 <div className="p-6">
                     hihihihi
-                </div>
-            </Drawer>
+                </div>,
+                document.querySelector("#drawer") as Element
+            )}
         </ul>
     )
 }
