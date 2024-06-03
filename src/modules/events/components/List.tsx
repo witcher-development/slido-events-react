@@ -2,13 +2,15 @@ import BackgroundPlaceholder from 'src/assets/event_placeholder_white_transparen
 
 import { Text } from 'src/components'
 
-import { EventsModule } from 'src/modules/events'
+import { EventsTypes } from 'src/modules/events'
 import { DrawerModule, DrawerComponents } from 'src/modules/drawer'
 
 
-export const List = () => {
-    const list = EventsModule.useEventsPreview()
+type Props = {
+    list: EventsTypes.Event[]
+}
 
+export const List = ({ list }: Props) => {
     const [drawerValue, setDrawerValue] = DrawerModule.useDrawer()
     const open = list.map(({ id }) => id).includes(Number(drawerValue))
 
@@ -36,10 +38,6 @@ export const List = () => {
                             >
                                 {title}
                             </a>
-                        </Text>
-
-                        <Text type="body">
-                            {description}
                         </Text>
                     </div>
                 </li>

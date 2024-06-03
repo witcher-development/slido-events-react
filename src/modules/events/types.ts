@@ -10,7 +10,8 @@ export const getEmptyCreateData = (): CreateData => ({
     background: null
 })
 
-export type EventPreview = CreateData & {
+export type Event = CreateData & {
 	id: number
 }
 
+export type EventPreview = Omit<Event, 'description'> 

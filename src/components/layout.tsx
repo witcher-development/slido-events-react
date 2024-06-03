@@ -1,11 +1,13 @@
-import { PropsWithChildren } from 'react'
-
-import { EventsComponents } from 'src/modules/events'
+import { PropsWithChildren, ReactNode } from 'react'
 
 import Logo from 'src/assets/logo.svg?react'
 
 
-export const Layout = ({ children }: PropsWithChildren) => {
+type Props = {
+    headerSlot?: ReactNode
+}
+
+export const Layout = ({ children, headerSlot }: PropsWithChildren<Props>) => {
     return (
         <div>
             <header className="flex justify-between bg-white p-4 mb-10 shadow-sm">
@@ -13,7 +15,7 @@ export const Layout = ({ children }: PropsWithChildren) => {
 
                 <input placeholder="search" />
 
-                <EventsComponents.CreateForm />
+                {headerSlot}
             </header>
 
             <main className="container mx-auto max-w-screen-sm">

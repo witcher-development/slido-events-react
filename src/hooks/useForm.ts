@@ -23,6 +23,7 @@ export const useForm = <T extends Schema>(
                 ...result.register(field),
                 error: result.formState.errors[field]?.message
             }
-        }
+        },
+        isValid: Object.keys(result.formState.errors).length === 0
     }
 }

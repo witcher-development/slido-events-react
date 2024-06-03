@@ -2,15 +2,19 @@ import './reset.css'
 
 import { Layout } from 'src/components'
 
-import { EventsComponents } from 'src/modules/events'
+import { EventsModule, EventsComponents } from 'src/modules/events'
 import { DrawerComponents } from 'src/modules/drawer'
 
 
 const App = () => {
+    const [eventsList, refetchList] = EventsModule.useList()
+
     return (
         <div className="font-sans">
-            <Layout>
-                <EventsComponents.List />
+            <Layout
+                headerSlot={<EventsComponents.CreateForm onSubmit={refetchList} />}
+            >
+                <EventsComponents.List list={eventsList} />
             </Layout>
 
             <DrawerComponents.Drawer />

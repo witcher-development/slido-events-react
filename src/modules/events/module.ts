@@ -1,15 +1,26 @@
 import { useEffect, useState } from 'react'
 
-import { EventPreview } from './types'
-import { fetchPreviewList } from './api'
+import { Event, CreateData } from './types'
+import { fetchList, post } from './api'
 
 
-export const useEventsPreview = () => {
-    const [list, setList] = useState<EventPreview[]>([])
+export const useList = () => {
+    const [list, setList] = useState<Event[]>([])
 
+    const fetch = () => {
+        fetchList().then(setList)
+    }
     useEffect(() => {
-        fetchPreviewList().then(setList)
+        fetch()
     }, [])
 
-    return list
+    return [list, fetch] as const
+}
+
+export const create = async (data: CreateData) => {
+    await post(data)
+
+    // This layer is extra now, but supposed to be a place to handle things like:
+    // Notifications
+    // Error handling
 }

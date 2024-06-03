@@ -5,7 +5,7 @@ import { useForm } from 'src/hooks/useForm'
 import { Button, Text } from 'src/components'
 import { TextField, TextArea } from 'src/components/forms'
 
-import { EventsTypes } from 'src/modules/events'
+import { EventsTypes, EventsModule } from 'src/modules/events'
 import { DrawerModule, DrawerComponents } from 'src/modules/drawer'
 
 import { createEventSchema } from '../schema'
@@ -13,8 +13,12 @@ import { getEmptyCreateData } from '../types'
 
 
 
-export const CreateForm = () => {
-    const { register, handleSubmit } = useForm({
+type Props = {
+    onSubmit: () => void
+}
+
+export const CreateForm = ({ onSubmit: onSubmitFromProps }: Props) => {
+    const { register, handleSubmit, isValid } = useForm({
         schema: createEventSchema,
         defaultValues: getEmptyCreateData(),
         mode: 'onBlur'
@@ -23,7 +27,7 @@ export const CreateForm = () => {
     const [drawerValue, setDrawerValue] = DrawerModule.useDrawer()
 
     const onSubmit = (data: EventsTypes.CreateData) => {
-        console.log(data)
+        EventsModule.create(data).then(onSubmitFromProps)
     }
 
     return (
@@ -44,10 +48,16 @@ export const CreateForm = () => {
 
                         <TextArea
                             {...register('description')}
-                            label="Description"
+                            label="Description (optional)"
                         ></TextArea>
 
-                        <Button type="submit" className="self-end">Submit</Button>
+                        <Button 
+                            type="submit"
+                            className="self-end"
+                            disabled={!isValid}
+                        >
+                            Submit
+                        </Button>
                     </form>
                 </DrawerComponents.Portal>
             )}
