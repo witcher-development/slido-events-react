@@ -1,6 +1,6 @@
 import BackgroundPlaceholder from 'src/assets/event_placeholder_white_transparent.png'
 
-import { Text  } from 'src/components'
+import { Text } from 'src/components'
 
 import { EventsModule } from 'src/modules/events'
 import { DrawerModule } from 'src/modules/drawer'

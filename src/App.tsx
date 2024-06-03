@@ -11,8 +11,6 @@ const App = () => {
         <div className="font-sans">
             <Layout>
                 <EventsComponents.List />
-
-                <EventsComponents.CreateForm />
             </Layout>
 
             <Drawer />

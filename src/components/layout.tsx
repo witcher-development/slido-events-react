@@ -1,5 +1,7 @@
 import { PropsWithChildren } from 'react'
 
+import { EventsComponents } from 'src/modules/events'
+
 import Logo from 'src/assets/logo.svg?react'
 
 
@@ -11,7 +13,7 @@ export const Layout = ({ children }: PropsWithChildren) => {
 
                 <input placeholder="search" />
 
-                <button>Create</button>
+                <EventsComponents.CreateForm />
             </header>
 
             <main className="container mx-auto max-w-screen-sm">
