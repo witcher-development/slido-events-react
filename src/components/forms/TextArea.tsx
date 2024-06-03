@@ -4,28 +4,30 @@ import { LabelWithHint } from './LableWithHint'
 import { textBoxStyles } from './styles'
 
 
-type Props = InputHTMLAttributes<HTMLInputElement> & {
+type Props = InputHTMLAttributes<HTMLTextAreaElement> & {
     label?: string,
     error?: string
 }
 
-export const TextField = forwardRef<HTMLInputElement, Props>(({ label, error, ...inputProps }, ref) => {
+export const TextArea = forwardRef<HTMLTextAreaElement, Props>(({ label, error, ...textAreaProps }, ref) => {
     return (
         <div>
             {label && (
                 <LabelWithHint
                     label={label}
                     error={error}
-                    inputId={inputProps.name} 
+                    inputId={textAreaProps.name} 
                 />
             )}
 
             <div>
-                <input
-                    className={`${textBoxStyles()} ${error && 'ring-red-500'}`}
+                <textarea
+                    className={`${textBoxStyles()} resize-none ${error && 'ring-red-500'}`}
                     ref={ref}
-                    id={inputProps.name}
-                    {...inputProps}
+                    id={textAreaProps.name}
+                    
+                    
+                    {...textAreaProps}
                 />
             </div>
         </div>
