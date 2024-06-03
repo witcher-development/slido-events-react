@@ -18,10 +18,10 @@ const createStore = <State extends Record<string, string>>(defaultState: State) 
             return `${key}${HASH_KEY_VALUE_SEPARATOR}${state[key]}`
         }).join(HASH_ITEMS_SEPARATOR)
 
-        document.location.hash = `#${newHash}`
+        return `#${newHash}`
     }
 
-    const hashToState = (hash: string): State => {
+    const hashToState = (hash: string) => {
         if (hash === "") return defaultState
 
         const newState = { ...state$ }
@@ -60,7 +60,9 @@ const createStore = <State extends Record<string, string>>(defaultState: State) 
 
             return [
                 state,
-                stateToHash
+                (newState: State) => {
+                    document.location.hash = stateToHash(newState)
+                }
             ] as const
         }
     }
