@@ -3,7 +3,7 @@ import './reset.css'
 import { Layout } from 'src/components'
 
 import { EventsComponents } from 'src/modules/events'
-import { Drawer } from 'src/modules/drawer'
+import { DrawerComponents } from 'src/modules/drawer'
 
 
 const App = () => {
@@ -13,7 +13,7 @@ const App = () => {
                 <EventsComponents.List />
             </Layout>
 
-            <Drawer />
+            <DrawerComponents.Drawer />
         </div>
     )
 }

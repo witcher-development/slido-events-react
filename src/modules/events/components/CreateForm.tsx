@@ -5,7 +5,7 @@ import { useForm } from 'src/hooks/useForm'
 import { Button, Text } from 'src/components'
 import { TextField } from 'src/components/forms'
 
-import { DrawerModule } from 'src/modules/drawer'
+import { DrawerModule, DrawerComponents } from 'src/modules/drawer'
 
 import { createEventSchema } from '../schema'
 import { getEmptyCreateData } from '../types'
@@ -29,14 +29,16 @@ export const CreateForm = () => {
                 Create
             </Button>
 
-            {drawerValue === "new" && DrawerModule.portalToDrawer(
-                <form className="p-5 w-80">
-                    <Text type="h3" className="mb-5">Create new Event</Text>
-                    <TextField
-                        {...register('title')}
-                        label="Title"
-                    />
-                </form>
+            {drawerValue === "new" && (
+                <DrawerComponents.Portal>
+                    <form className="p-5 w-80">
+                        <Text type="h3" className="mb-5">Create new Event</Text>
+                        <TextField
+                            {...register('title')}
+                            label="Title"
+                        />
+                    </form>
+                </DrawerComponents.Portal>
             )}
         </>
     )

@@ -3,7 +3,7 @@ import BackgroundPlaceholder from 'src/assets/event_placeholder_white_transparen
 import { Text } from 'src/components'
 
 import { EventsModule } from 'src/modules/events'
-import { DrawerModule } from 'src/modules/drawer'
+import { DrawerModule, DrawerComponents } from 'src/modules/drawer'
 
 
 export const List = () => {
@@ -45,10 +45,12 @@ export const List = () => {
                 </li>
             ))}
 
-            {open && DrawerModule.portalToDrawer(
-                <div className="p-6">
-                    hihihihi
-                </div>
+            {open && (
+                <DrawerComponents.Portal>
+                    <div className="p-6">
+                        hihihihi
+                    </div>
+                </DrawerComponents.Portal>
             )}
         </ul>
     )
