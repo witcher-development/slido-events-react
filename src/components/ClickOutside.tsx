@@ -3,18 +3,17 @@ import { cloneElement, useEffect, useRef } from "react";
 
 type Props = {
     onClick: () => void,
-    enable?: boolean
+    enabled?: boolean
     children: React.ReactElement<any>
 }
 
-export const ClickOutside = ({ children, onClick, enable = true }: Props) => {
+export const ClickOutside = ({ children, onClick, enabled: enable = true }: Props) => {
     const ref = useRef<Element>(null)
 
     useEffect(() => {
         if (!enable) return
         const handleClick = (event: MouseEvent) => {
             if (!enable) return
-            console.log('handle click appens')
             if (!event.target) return
             // @ts-ignore
             if (ref.current && !ref.current.contains(event.target)) {
@@ -22,10 +21,10 @@ export const ClickOutside = ({ children, onClick, enable = true }: Props) => {
             }
         };
 
-        document.addEventListener('click', handleClick, true);
+        document.addEventListener('click', handleClick);
 
         return () => {
-            document.removeEventListener('click', handleClick, true);
+            document.removeEventListener('click', handleClick);
         };
     })
 

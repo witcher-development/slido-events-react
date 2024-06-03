@@ -1,74 +1,42 @@
 import { produce } from "immer"
+import { useEffect, useState, CSSProperties } from "react"
 
 import { Store } from "src/store"
+import { useEscapeEvent } from "src/hooks/keyboard"
 
 import { ClickOutside } from "./ClickOutside"
 
 
 export const Drawer = () => {
     const [store, setStore] = Store.use()
+    const [styles, setStyles] = useState<CSSProperties>({ 
+        transform: 'translate(0)'
+    })
+
     const close = () => {
-        console.log('DRAWER CLOSE')
-        setStore(produce(store, draft => {
-            draft.drawer = ""
-        }))
+        setStyles({})
+        setTimeout(() => {
+            setStore(produce(store, draft => {
+                draft.drawer = ""
+            }))
+        }, 150)
     }
-    console.log('RERENDER!!', store)
+    useEscapeEvent(close)
 
-    // useEffect(() => {
-    //     const show = () => {
-    //         console.log(ref.current)
-    //         if (!ref.current) return
-    //
-    //         ref.current.classList.remove("translate-x-[-100%]")
-    //         setTimeout(() => {
-    //             if (!ref.current) return
-    //             ref.current.classList.remove("!block")
-    //         }, 300)
-    //     }
-    //
-    //     const hide = () => {
-    //         if (!ref.current) return
-    //
-    //         ref.current.classList.add("!block")
-    //         setTimeout(() => {
-    //             if (!ref.current) return
-    //             ref.current.classList.add("translate-x-[-100%]")
-    //         }, 1)
-    //     }
-    //
-    //     if (!open) {
-    //         show()
-    //         return
-    //     }
-    //
-    //     hide()
-    //
-        // if (!open && !classes.length) return
-        //
-        // if (open && !classes.length) {
-        //     setClasses(["!block"])
-        //     setTimeout(() => {
-        //         setClasses(["!block translate-x-[-100%]"])
-        //     }, 1)
-        //     return
-        // }
-        //
-        // if (!open && classes.length) {
-        //     setClasses(["!block"])
-        //     setTimeout(() => {
-        //         setClasses([])
-        //     }, 300)
-        //     return
-        // }
-    // }, [open, ref.current])
+    const opened = store.drawer !== ""
+    useEffect(() => {
+        if (!opened) return
+        setStyles({ transform: 'translate(-100%)' })
+    }, [opened])
 
-    // console.log('render', open, classes)
-    // if (!open && !classes.length) return null
 
     return (
-        <ClickOutside onClick={close} enable={!!store.drawer}>
-            <div id="drawer" className={`left-full top-0 transition-transform translate-x-0 h-full bg-white ${!store.drawer && 'hidden'}`} />
+        <ClickOutside onClick={close} enabled={opened}>
+            <div 
+                id="drawer"
+                className={`fixed left-full top-0 transition-transform h-full bg-white`}
+                style={styles}
+            />
         </ClickOutside>
     )
 }

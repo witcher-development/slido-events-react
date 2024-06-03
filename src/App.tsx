@@ -11,8 +11,8 @@ const App = () => {
             <Layout>
                 <EventsComponents.List />
                 <EventsComponents.CreateForm />
-                <Drawer />
             </Layout>
+            <Drawer />
         </div>
     )
 }

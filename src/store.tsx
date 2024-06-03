@@ -22,7 +22,7 @@ const createStore = <State extends Record<string, string>>(defaultState: State) 
     }
 
     const hashToState = (hash: string): State => {
-        if (hash === "") return state$
+        if (hash === "") return defaultState
 
         const newState = { ...state$ }
 
@@ -52,9 +52,9 @@ const createStore = <State extends Record<string, string>>(defaultState: State) 
             const [state, setState] = useState(state$)
 
             useEffect(() => {
-                const index = listeners.push(setState)
+                listeners.push(setState)
                 return () => {
-                    listeners.splice(index, 1);
+                    listeners = listeners.filter(x => x !== setState)
                 }
             })
 
@@ -71,4 +71,3 @@ const defaultState = {
 }
 
 export const Store = createStore(defaultState)
-
