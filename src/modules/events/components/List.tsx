@@ -5,6 +5,7 @@ import { Text } from 'src/components'
 import { EventsTypes } from 'src/modules/events'
 import { DrawerModule, DrawerComponents } from 'src/modules/drawer'
 
+import { Details  } from './Details'
 
 type Props = {
     list: EventsTypes.Event[]
@@ -45,9 +46,7 @@ export const List = ({ list }: Props) => {
 
             {open && (
                 <DrawerComponents.Portal>
-                    <div className="p-6">
-                        hihihihi
-                    </div>
+                    <Details id={Number(drawerValue)} />
                 </DrawerComponents.Portal>
             )}
         </ul>

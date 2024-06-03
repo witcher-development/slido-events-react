@@ -12,6 +12,13 @@ export const client = ({
         if (!data) return []
         return JSON.parse(data)
     },
+    getOne: async (id: any) => {
+        const existingData = await client.get()
+        const record = existingData.find((item: any) => item.id === id)
+        
+        if (!record) throw new Error('404')
+        return record 
+    },
     post: async (data: any) => {
         const existingData = await client.get()
         localStorage.setItem(

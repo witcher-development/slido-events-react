@@ -1,17 +1,25 @@
 import { client } from 'src/client'
-import { CreateData, Event } from './types'
+import { CreateData, Event, EventPreview } from './types'
 
 
-const mapApiToEvent = (data: any): Event => ({
+const mapApiToEventPreview = (data: any): EventPreview => ({
     id: data.id,
     title: data.title,
-    description: data.description,
     background: data.background
 })
+const mapApiToEvent = (data: any): Event => ({
+    ...mapApiToEventPreview(data),
+    description: data.description,
+})
 
-export const fetchList = async (): Promise<Event[]> => {
+export const fetchList = async (): Promise<EventPreview[]> => {
     const data = await client.get()
     return (data as []).map(mapApiToEvent)
+}
+
+export const fetchOne = async (id: Event['id']): Promise<Event> => {
+    const data = await client.getOne(id)
+    return mapApiToEvent(data)
 }
 
 export const post = async (data: CreateData) => {

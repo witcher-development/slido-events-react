@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react'
 
-import { Event, CreateData } from './types'
-import { fetchList, post } from './api'
+import { Event, CreateData, EventPreview } from './types'
+import { fetchList, fetchOne, post } from './api'
 
 
 export const useList = () => {
-    const [list, setList] = useState<Event[]>([])
+    const [list, setList] = useState<EventPreview[]>([])
 
     const fetch = () => {
         fetchList().then(setList)
@@ -15,6 +15,17 @@ export const useList = () => {
     }, [])
 
     return [list, fetch] as const
+}
+
+export const useOne = (id: Event['id']) => {
+    const [details, setDetails] = useState<Event | null>(null)
+
+    useEffect(() => {
+        fetchOne(id).then(setDetails)
+    }, [])
+
+    return details
+
 }
 
 export const create = async (data: CreateData) => {
