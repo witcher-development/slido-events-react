@@ -13,6 +13,7 @@ export const Drawer = () => {
             draft.drawer = ""
         }))
     }
+    console.log('RERENDER!!', store)
 
     // useEffect(() => {
     //     const show = () => {
@@ -67,7 +68,7 @@ export const Drawer = () => {
 
     return (
         <ClickOutside onClick={close} enable={!!store.drawer}>
-            <div id="drawer" className={`fixed left-full top-0 transition-transform translate-x-0 h-full bg-white ${!store.drawer && 'hidden'}`} />
+            <div id="drawer" className={`left-full top-0 transition-transform translate-x-0 h-full bg-white ${!store.drawer && 'hidden'}`} />
         </ClickOutside>
     )
 }

@@ -1,15 +1,15 @@
 import { produce } from 'immer'
-import { createPortal } from 'react-dom'
 import BackgroundPlaceholder from 'src/assets/event_placeholder_white_transparent.png'
 import { Text  } from 'src/components'
 import { EventsModule } from "src/modules/events"
+import { portalToDrawer as renderInDrawer } from "src/modules/drawer/module"
 import { Store } from 'src/store'
 
 
 export const List = () => {
     const [store, setStore] = Store.use()
     const setEvent = (eventId: number) => {
-        console.log('DRAWER CLOSE')
+        console.log('SET EVENT')
         setStore(produce(store, draft => {
             draft.drawer = String(eventId)
         }))
@@ -39,11 +39,10 @@ export const List = () => {
                     </div>
                 </li>
             ))}
-            {store.drawer && createPortal(
+            {store.drawer && renderInDrawer(
                 <div className="p-6">
                     hihihihi
-                </div>,
-                document.querySelector("#drawer") as Element
+                </div>
             )}
         </ul>
     )
