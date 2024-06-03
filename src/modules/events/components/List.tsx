@@ -14,9 +14,9 @@ export const List = ({ list }: Props) => {
     const [drawerValue, setDrawerValue] = DrawerModule.useDrawer()
     const open = list.map(({ id }) => id).includes(Number(drawerValue))
 
-    return (
+    return list.length ? (
         <ul className="flex flex-col gap-8">
-            {list.map(({ id, title, description, background }) => (
+            {list.map(({ id, title, background }) => (
                 <li
                     key={id}
                     className="shadow-lg rounded-lg overflow-hidden"
@@ -51,6 +51,11 @@ export const List = ({ list }: Props) => {
                 </DrawerComponents.Portal>
             )}
         </ul>
+    ) : (
+        <div className="p-16 border-2 rounded-lg text-center">
+                <Text type="h3" className="!text-gray-400 mb-1.5">No Events Here Yet</Text>
+                <Text type="body" className='!text-gray-400'>Create your first event</Text>
+        </div>
     )
 }
 
