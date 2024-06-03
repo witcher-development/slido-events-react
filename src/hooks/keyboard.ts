@@ -1,4 +1,5 @@
-import { useEffect } from "react"
+import { useEffect } from 'react'
+
 
 export const useEscapeEvent = (callback: () => void) => {
     useEffect(() => {

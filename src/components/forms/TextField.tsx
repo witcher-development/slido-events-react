@@ -1,4 +1,4 @@
-import { InputHTMLAttributes, forwardRef } from "react" 
+import { InputHTMLAttributes, forwardRef } from 'react'
 
 
 type Props = InputHTMLAttributes<HTMLInputElement> & {
@@ -8,9 +8,15 @@ type Props = InputHTMLAttributes<HTMLInputElement> & {
 export const TextField = forwardRef<HTMLInputElement, Props>(({ label, ...inputProps }, ref) => {
     return (
         <div>
-            <label>{label}</label>
+            <label>
+                {label}
+            </label>
+
             <div>
-                <input {...inputProps} ref={ref} />
+                <input
+                    {...inputProps}
+                    ref={ref}
+                />
             </div>
         </div>
     )

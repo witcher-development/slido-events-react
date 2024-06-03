@@ -1,5 +1,5 @@
-import { useForm as $useForm, UseFormProps } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
+import { useForm as $useForm, UseFormProps } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
 import { z, Schema } from 'zod'
 
 
@@ -11,8 +11,8 @@ export const useForm = <T extends Schema>(
     props: Props<T>
 ) => {
     const { schema, ...rest } = props
-    return $useForm<z.infer<T>>({ 
+    return $useForm<z.infer<T>>({
         resolver: zodResolver(props.schema),
-        ...rest, 
+        ...rest,
     })
 }

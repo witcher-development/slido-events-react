@@ -1,10 +1,10 @@
-import { cloneElement, useEffect, useRef } from "react";
+import { cloneElement, useEffect, useRef, ReactElement } from 'react'
 
 
 type Props = {
     onClick: () => void,
     enabled?: boolean
-    children: React.ReactElement<any>
+    children: ReactElement<any>
 }
 
 export const ClickOutside = ({ children, onClick, enabled: enable = true }: Props) => {
@@ -17,16 +17,18 @@ export const ClickOutside = ({ children, onClick, enabled: enable = true }: Prop
             if (!event.target) return
             // @ts-ignore
             if (ref.current && !ref.current.contains(event.target)) {
-                onClick();
+                onClick()
             }
-        };
+        }
 
-        document.addEventListener('click', handleClick);
+        document.addEventListener('click', handleClick)
 
         return () => {
-            document.removeEventListener('click', handleClick);
-        };
+            document.removeEventListener('click', handleClick)
+        }
     })
 
-    return <>{cloneElement(children, { ...children.props, ref })}</>
+    return <>
+        {cloneElement(children, { ...children.props, ref })}
+    </>
 }

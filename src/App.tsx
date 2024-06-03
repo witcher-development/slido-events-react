@@ -1,8 +1,9 @@
 import './reset.css'
 
-import { Layout, Drawer } from 'src/components'
+import { Layout } from 'src/components'
 
 import { EventsComponents } from 'src/modules/events'
+import { Drawer } from 'src/modules/drawer'
 
 
 const App = () => {
@@ -10,8 +11,10 @@ const App = () => {
         <div className="font-sans">
             <Layout>
                 <EventsComponents.List />
+
                 <EventsComponents.CreateForm />
             </Layout>
+
             <Drawer />
         </div>
     )

@@ -1,4 +1,5 @@
-import { PropsWithChildren } from "react"
+import { PropsWithChildren } from 'react'
+
 import Logo from 'src/assets/logo.svg?react'
 
 

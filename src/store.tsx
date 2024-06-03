@@ -1,5 +1,6 @@
-import { useEffect, useState } from "react"
-import { drawerDefaultState } from "src/modules/drawer/store"
+import { useEffect, useState } from 'react'
+
+import { drawerDefaultState } from 'src/modules/drawer/store'
 
 
 const HASH_KEY_VALUE_SEPARATOR = '='
@@ -22,13 +23,13 @@ const createStore = <State extends Record<string, string>>(defaultState: State) 
     }
 
     const hashToState = (hash: string) => {
-        if (hash === "") return defaultState
+        if (hash === '') return defaultState
 
         const newState = { ...state$ }
 
         hash.slice(1).split(HASH_ITEMS_SEPARATOR).forEach((segment) => {
             const [key, value] = segment.split(HASH_KEY_VALUE_SEPARATOR)
-            
+
             // @ts-ignore
             newState[key] = value
         })
@@ -44,7 +45,7 @@ const createStore = <State extends Record<string, string>>(defaultState: State) 
         const newState = hashToState(newHash)
         if (isEqual(state$, newState)) return
         state$ = newState
-        listeners.forEach((listener) => listener(newState))
+        listeners.forEach(listener => listener(newState))
     })
 
     return {
