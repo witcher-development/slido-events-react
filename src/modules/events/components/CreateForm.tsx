@@ -13,15 +13,23 @@ import { getEmptyCreateData } from '../types'
 
 
 export const CreateForm = () => {
-    const { register, formState } = useForm({
+    const { register, formState, handleSubmit } = useForm({
         schema: createEventSchema,
         defaultValues: getEmptyCreateData(),
-        mode: 'onChange'
+        mode: 'all'
     })
 
     const [drawerValue, setDrawerValue] = DrawerModule.useDrawer()
-    console.log(drawerValue)
 
+    const onSubmit = (data) => {
+        console.log(all)
+    }
+
+    const reg = register('title')
+    const onChange = (stuff) => {
+        console.log(stuff.target.value)
+        reg.onChange(stuff)
+    }
     return (
         <>
             <Button onClick={() => setDrawerValue("new")}>
@@ -31,12 +39,15 @@ export const CreateForm = () => {
 
             {drawerValue === "new" && (
                 <DrawerComponents.Portal>
-                    <form className="p-5 w-80">
-                        <Text type="h3" className="mb-5">Create new Event</Text>
+                    <form className="flex flex-col gap-3 p-5 w-80" onSubmit={handleSubmit(onSubmit)}>
+                        <Text type="h3" className="mb-4">Create new Event</Text>
                         <TextField
-                            {...register('title')}
+                            {...reg}
+                            onChange={onChange}
                             label="Title"
                         />
+
+                        <Button type="submit" className="self-end">Submit</Button>
                     </form>
                 </DrawerComponents.Portal>
             )}

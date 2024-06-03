@@ -8,7 +8,7 @@ type Props = InputHTMLAttributes<HTMLInputElement> & {
 }
 
 export const TextField = forwardRef<HTMLInputElement, Props>(({ label, ...inputProps }, ref) => {
-    console.log(inputProps)
+    // console.log(inputProps)
     return (
         <div>
             <label>
