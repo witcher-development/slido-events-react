@@ -12,7 +12,7 @@ export const Hint = ({ color, children }: PropsWithChildren<Props>) => {
     return (
         <Text
             type='tiny'
-            className="relative border border-solid border-gray-500 rounded-full w-4 h-4 text-center font-xs leading-[14px]"
+            className="relative border border-solid border-gray-500 rounded-full w-[13px] h-[13px] text-center text-[10px] leading-[10px] pl-px pt-px cursor-pointer"
             style={color ? {
                 color,
                 borderColor: color
@@ -25,10 +25,11 @@ export const Hint = ({ color, children }: PropsWithChildren<Props>) => {
             {visible && (
                 <Text 
                     type="tiny"
-                    className="absolute left-1/2 p-1"
+                    className="absolute left-1/2 py-1 px-2 bg-neutral-900 !text-neutral-200 rounded-lg"
                     style={{
-                        top: 'calc(100% + 5px)',
-                        transform: 'translate(-50%)'
+                        bottom: 0,
+                        left: 'calc(100% + 5px)',
+                        width: 190,
                     }}
                 >
                     {children}
