@@ -8,7 +8,7 @@ import Logo from 'src/assets/logo.svg?react'
 export const Layout = ({ children }: PropsWithChildren) => {
     return (
         <div>
-            <header className="flex justify-between bg-white p-4 mb-10">
+            <header className="flex justify-between bg-white p-4 mb-10 shadow-sm">
                 <Logo />
 
                 <input placeholder="search" />
