@@ -2,7 +2,7 @@ import { PropsWithChildren } from 'react'
 
 
 type Props = {
-    type: 'h1' | 'h2' | 'h3' | 'body'
+    type: 'h1' | 'h2' | 'h3' | 'body' | 'tiny'
     className?: string
 }
 
@@ -22,6 +22,10 @@ export const Text = ({ type, className = '', children }: PropsWithChildren<Props
             </h3>
         case 'body':
             return <p className={`text-sm text-gray-600 ${className}`}>
+                {children}
+            </p>
+        case 'tiny':
+            return <p className={`text-sm text-gray-500 ${className}`}>
                 {children}
             </p>
     }

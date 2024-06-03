@@ -2,7 +2,7 @@ import Plus from 'src/assets/plus.svg?react'
 
 import { useForm } from 'src/hooks/useForm'
 
-import { Button } from 'src/components'
+import { Button, Text } from 'src/components'
 import { TextField } from 'src/components/forms'
 
 import { DrawerModule } from 'src/modules/drawer'
@@ -20,6 +20,7 @@ export const CreateForm = () => {
     })
 
     const [drawerValue, setDrawerValue] = DrawerModule.useDrawer()
+    console.log(drawerValue)
 
     return (
         <>
@@ -29,7 +30,8 @@ export const CreateForm = () => {
             </Button>
 
             {drawerValue === "new" && DrawerModule.portalToDrawer(
-                <form>
+                <form className="p-5 w-80">
+                    <Text type="h3" className="mb-5">Create new Event</Text>
                     <TextField
                         {...register('title')}
                         label="Title"
