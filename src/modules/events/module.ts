@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react'
 
-import { Event, CreateData, EventPreview } from './types'
+import { BucketModule } from 'src/modules/bucket'
+
+import { Event, CreateFormData, EventPreview } from './types'
 import { fetchList, fetchOne, post } from './api'
 
 
@@ -28,10 +30,14 @@ export const useOne = (id: Event['id']) => {
 
 }
 
-export const create = async (data: CreateData) => {
-    await post(data)
+export const create = async (data: CreateFormData) => {
+    let filePath = null
+    if (data.background) {
+        filePath = await BucketModule.uploadFile(data.background[0])
+    }
 
-    // This layer is extra now, but supposed to be a place to handle things like:
-    // Notifications
-    // Error handling
+    await post({
+        ...data,
+        background: filePath
+    })
 }

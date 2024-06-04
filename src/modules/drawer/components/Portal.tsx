@@ -1,7 +1,12 @@
-import { PropsWithChildren, useEffect, useState, ReactNode } from "react";
-import { createPortal } from "react-dom";
+import {
+    PropsWithChildren,
+    useEffect,
+    useState,
+    ReactNode
+} from 'react'
+import { createPortal } from 'react-dom'
 
-import { delay } from "src/helpers/delay";
+import { delay } from 'src/helpers/delay'
 
 
 const emptyRender = <></>
@@ -13,7 +18,7 @@ export const Portal = ({ children }: PropsWithChildren) => {
 
     useEffect(() => {
         (async () => {
-            let drawer = getDrawerDOMNode()
+            const drawer = getDrawerDOMNode()
             if (!drawer) await delay(50)
 
             setDrawerNode(drawer)

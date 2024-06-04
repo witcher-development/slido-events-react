@@ -13,7 +13,10 @@ export const Details = ({ id }: Props) => {
     const details = EventsModule.useOne(id)
 
     if (!details) {
-        return <Skeleton width="100%" height="200px" />
+        return <Skeleton
+            width="100%"
+            height="200px"
+        />
     }
 
     return (
@@ -31,8 +34,12 @@ export const Details = ({ id }: Props) => {
                         {details.description}
                     </Text>
                 )}
+
                 {!details.description && (
-                    <Text type="body" className="!text-gray-400 text-center">
+                    <Text
+                        type="body"
+                        className="!text-gray-400 text-center"
+                    >
                         No Description
                     </Text>
                 )}

@@ -12,7 +12,7 @@ export const useForm = <T extends Schema>(
 ) => {
     const { schema, ...rest } = props
     const result = $useForm<z.infer<T>>({
-        resolver: zodResolver(props.schema),
+        resolver: zodResolver(schema),
         ...rest,
     })
 

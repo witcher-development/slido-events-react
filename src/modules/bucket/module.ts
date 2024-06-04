@@ -9,7 +9,7 @@ const supabase = createClient(PROJECT_NAME, KEY)
 
 
 export const uploadFile = async (file: File) => {
-    const { data } = await supabase
+    const { data, error } = await supabase
         .storage
         .from(BUCKET_NAME)
         .upload(file.name, file, {
@@ -17,8 +17,9 @@ export const uploadFile = async (file: File) => {
             upsert: false
         })
 
-    return data?.path
-};
+    if (error) throw new Error('File uploading failed')
+    return data.path
+}
 
 export const getFileURL = async (path: string) => {
     const { data } = supabase

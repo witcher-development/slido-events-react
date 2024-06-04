@@ -1,3 +1,5 @@
+import { useEffect, useState } from 'react'
+
 import BackgroundPlaceholder from 'src/assets/event_placeholder_white_transparent.png'
 
 import { Text } from 'src/components'
@@ -7,7 +9,7 @@ import { DrawerModule, DrawerComponents } from 'src/modules/drawer'
 import { getFileURL } from 'src/modules/bucket/module'
 
 import { Details  } from './Details'
-import { useEffect, useState } from 'react'
+
 
 type Props = {
     list: EventsTypes.Event[]
@@ -20,8 +22,7 @@ export const List = ({ list }: Props) => {
 
     useEffect(() => {
         (async () => {
-            for (let item of list) {
-                console.log(item)
+            for (const item of list) {
                 if (!item.background || pathMap[item.background]) continue
                 const path = await getFileURL(item.background)
                 setPathMap({
@@ -31,8 +32,6 @@ export const List = ({ list }: Props) => {
             }
         })()
     }, [list, pathMap])
-
-    console.log(list, pathMap)
 
     return list.length ? (
         <ul className="flex flex-col gap-8">
@@ -72,8 +71,19 @@ export const List = ({ list }: Props) => {
         </ul>
     ) : (
         <div className="p-16 border-2 rounded-lg text-center">
-                <Text type="h3" className="!text-gray-400 mb-1.5">No Events Here Yet</Text>
-                <Text type="body" className='!text-gray-400'>Create your first event</Text>
+            <Text
+                type="h3"
+                className="!text-gray-400 mb-1.5"
+            >
+                No Events Here Yet
+            </Text>
+
+            <Text
+                type="body"
+                className="!text-gray-400"
+            >
+                Create your first event
+            </Text>
         </div>
     )
 }

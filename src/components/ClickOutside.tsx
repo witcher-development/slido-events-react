@@ -1,4 +1,9 @@
-import { cloneElement, useEffect, useRef, ReactElement } from 'react'
+import {
+    cloneElement,
+    useEffect,
+    useRef,
+    ReactElement
+} from 'react'
 
 
 type Props = {

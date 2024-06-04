@@ -1,12 +1,12 @@
 import Plus from 'src/assets/plus.svg?react'
+
 import { useForm } from 'src/hooks/useForm'
 import { Button, Text } from 'src/components'
-import { TextField, TextArea } from 'src/components/forms'
+
+import { TextField, TextArea, FileUpload } from 'src/components/forms'
 
 import { EventsTypes, EventsModule, EventsSchema } from 'src/modules/events'
 import { DrawerModule, DrawerComponents } from 'src/modules/drawer'
-import { useState } from 'react'
-import { uploadFile } from 'src/modules/bucket/module'
 
 
 type Props = {
@@ -14,39 +14,38 @@ type Props = {
 }
 
 export const CreateForm = ({ onSubmit: onSubmitFromProps }: Props) => {
-    const { register, handleSubmit, isValid, setValue } = useForm({
+    const { register, handleSubmit, isValid } = useForm({
         schema: EventsSchema.createSchema,
         defaultValues: EventsTypes.getEmptyCreateData(),
-        mode: 'onBlur'
+        mode: 'all'
     })
 
     const [drawerValue, setDrawerValue] = DrawerModule.useDrawer()
 
-    const [filePath, setFilePath] = useState("")
-    const handleFileChange = async (e) => {
-        const file = e.target.files[0];
-        const path = await uploadFile(file)
-        setFilePath(path)
-    }
-
-    const onSubmit = (data: EventsTypes.CreateData) => {
-        EventsModule.create({
-            ...data,
-            background: filePath
-        }).then(onSubmitFromProps)
+    const onSubmit = (data: EventsTypes.CreateFormData) => {
+        EventsModule.create(data).then(onSubmitFromProps)
     }
 
     return (
         <>
-            <Button onClick={() => setDrawerValue("new")}>
-                <Plus style={{ width: "100%", height: "100%" }} />
+            <Button onClick={() => setDrawerValue('new')}>
+                <Plus style={{ width: '100%', height: '100%' }} />
                 Create
             </Button>
 
-            {drawerValue === "new" && (
+            {drawerValue === 'new' && (
                 <DrawerComponents.Portal>
-                    <form className="flex flex-col gap-3 p-5 w-80" onSubmit={handleSubmit(onSubmit)}>
-                        <Text type="h3" className="mb-4">Create new Event</Text>
+                    <form
+                        className="flex flex-col gap-3 p-5 w-80"
+                        onSubmit={handleSubmit(onSubmit)}
+                    >
+                        <Text
+                            type="h3"
+                            className="mb-4"
+                        >
+                            Create new Event
+                        </Text>
+
                         <TextField
                             {...register('title')}
                             label="Title"
@@ -57,9 +56,9 @@ export const CreateForm = ({ onSubmit: onSubmitFromProps }: Props) => {
                             label="Description (optional)"
                         ></TextArea>
 
-                        <input type="file" onChange={handleFileChange} />
+                        <FileUpload {...register('background')} />
 
-                        <Button 
+                        <Button
                             type="submit"
                             className="self-end"
                             disabled={!isValid}

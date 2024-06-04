@@ -16,7 +16,7 @@ export const TextArea = forwardRef<HTMLTextAreaElement, Props>(({ label, error, 
                 <LabelWithHint
                     label={label}
                     error={error}
-                    inputId={textAreaProps.name} 
+                    inputId={textAreaProps.name}
                 />
             )}
 
@@ -25,8 +25,8 @@ export const TextArea = forwardRef<HTMLTextAreaElement, Props>(({ label, error, 
                     className={`${textBoxStyles()} resize-none ${error && 'ring-red-500'}`}
                     ref={ref}
                     id={textAreaProps.name}
-                    
-                    
+
+
                     {...textAreaProps}
                 />
             </div>

@@ -5,10 +5,10 @@ type Props = {
 
 export const Skeleton = ({ width, height }: Props) => {
     return (
-        <div 
+        <div
             className="bg-gray-300 animate-pulse rounded"
             style={{
-                width, 
+                width,
                 height
             }}
         />
