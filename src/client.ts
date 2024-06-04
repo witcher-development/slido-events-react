@@ -25,5 +25,12 @@ export const client = ({
             LOCAL_STORAGE_KEY,
             JSON.stringify([...existingData, { ...data, id: getRandomInt(1, 1000) }])
         )
+    },
+    delete: async (data: any) => {
+        const existingData = await client.get()
+        localStorage.setItem(
+            LOCAL_STORAGE_KEY,
+            JSON.stringify(existingData.filter((item: any) => item.id !== data))
+        )
     }
 })

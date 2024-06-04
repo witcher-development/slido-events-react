@@ -28,3 +28,10 @@ export const getFileURL = async (path: string) => {
         .getPublicUrl(path)
     return data.publicUrl
 }
+
+export const removeFile = async (path: string) => {
+    await supabase
+        .storage
+        .from(BUCKET_NAME)
+        .remove([path])
+}

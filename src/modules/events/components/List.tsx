@@ -1,11 +1,12 @@
 import BackgroundPlaceholder from 'src/assets/event_placeholder_white_transparent.png'
 
-import { Text } from 'src/components'
+import { Text, DeteleButton } from 'src/components'
 
-import { EventsTypes } from 'src/modules/events'
+import { EventsModule, EventsTypes } from 'src/modules/events'
 import { DrawerModule, DrawerComponents } from 'src/modules/drawer'
 
-import { Details  } from './Details'
+import { Details } from './Details'
+import { DeleteData } from '../types'
 
 
 const EmptyState = () => (
@@ -28,19 +29,25 @@ const EmptyState = () => (
 
 type Props = {
     list: EventsTypes.EventPreview[]
+    refetch: () => void
 }
 
-export const List = ({ list }: Props) => {
+export const List = ({ list, refetch }: Props) => {
     const [drawerValue, setDrawerValue] = DrawerModule.useDrawer()
     const open = list.map(({ id }) => id).includes(Number(drawerValue))
+
+    const onDelete = async (data: DeleteData) => {
+        await EventsModule.remove(data)
+        refetch()
+    }
 
     if (!list.length) return <EmptyState />
     return (
         <ul className="flex flex-col gap-8">
-            {list.map(({ id, title, background }) => (
+            {list.map(({ id, title, background, backgroundBucketPath }) => (
                 <li
                     key={id}
-                    className="shadow-lg rounded-lg overflow-hidden"
+                    className="shadow-lg rounded-lg overflow-hidden relative"
                 >
                     <img
                         src={background || BackgroundPlaceholder}
@@ -61,6 +68,10 @@ export const List = ({ list }: Props) => {
                             </a>
                         </Text>
                     </div>
+
+                    <div className="absolute top-2 right-2">
+                        <DeteleButton onClick={() => onDelete({ id, filePath: backgroundBucketPath })} />
+                    </div>     
                 </li>
             ))}
 

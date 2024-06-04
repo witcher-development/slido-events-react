@@ -6,7 +6,8 @@ import { CreateData, Event, EventPreview } from './types'
 const mapApiToEventPreview = (data: any): EventPreview => ({
     id: data.id,
     title: data.title,
-    background: data.background
+    background: data.background,
+    backgroundBucketPath: data.backgroundBucketPath
 })
 const mapApiToEvent = (data: any): Event => ({
     ...mapApiToEventPreview(data),
@@ -25,4 +26,8 @@ export const fetchOne = async (id: Event['id']): Promise<Event> => {
 
 export const post = async (data: CreateData) => {
     await client.post(data)
+}
+
+export const remove = async (data: Event['id']) => {
+    await client.delete(data)
 }

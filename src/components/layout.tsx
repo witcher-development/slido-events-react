@@ -13,8 +13,6 @@ export const Layout = ({ children, headerSlot }: PropsWithChildren<Props>) => {
             <header className="flex justify-between bg-white p-4 mb-10 shadow-sm">
                 <Logo />
 
-                <input placeholder="search" />
-
                 {headerSlot}
             </header>
 

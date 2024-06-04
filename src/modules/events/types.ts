@@ -12,6 +12,7 @@ export const getEmptyCreateData = (): CreateFormData => ({
 
 export type CreateData = Omit<CreateFormData, 'background'> & {
     background: string | null
+    backgroundBucketPath: string | null
 }
 
 export type Event = CreateData & {
@@ -19,3 +20,8 @@ export type Event = CreateData & {
 }
 
 export type EventPreview = Omit<Event, 'description'>
+
+export type DeleteData = {
+    id: Event['id']
+    filePath: string | null
+}

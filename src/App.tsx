@@ -14,7 +14,7 @@ const App = () => {
             <Layout
                 headerSlot={<EventsComponents.CreateForm onSubmit={refetchList} />}
             >
-                <EventsComponents.List list={eventsList} />
+                <EventsComponents.List list={eventsList} refetch={refetchList} />
             </Layout>
 
             <DrawerComponents.Drawer />
