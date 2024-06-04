@@ -4,8 +4,10 @@ import { Text } from 'src/components'
 
 import { EventsTypes } from 'src/modules/events'
 import { DrawerModule, DrawerComponents } from 'src/modules/drawer'
+import { getFileURL } from 'src/modules/bucket/module'
 
 import { Details  } from './Details'
+import { useEffect, useState } from 'react'
 
 type Props = {
     list: EventsTypes.Event[]
@@ -14,6 +16,23 @@ type Props = {
 export const List = ({ list }: Props) => {
     const [drawerValue, setDrawerValue] = DrawerModule.useDrawer()
     const open = list.map(({ id }) => id).includes(Number(drawerValue))
+    const [pathMap, setPathMap] = useState<Record<string, string>>({})
+
+    useEffect(() => {
+        (async () => {
+            for (let item of list) {
+                console.log(item)
+                if (!item.background || pathMap[item.background]) continue
+                const path = await getFileURL(item.background)
+                setPathMap({
+                    ...pathMap,
+                    [item.background]: path
+                })
+            }
+        })()
+    }, [list, pathMap])
+
+    console.log(list, pathMap)
 
     return list.length ? (
         <ul className="flex flex-col gap-8">
@@ -23,7 +42,8 @@ export const List = ({ list }: Props) => {
                     className="shadow-lg rounded-lg overflow-hidden"
                 >
                     <img
-                        src={background || BackgroundPlaceholder}
+                        src={(background
+                             && pathMap[background]) || BackgroundPlaceholder}
                         alt="Event background"
                         className="object-contain h-64 w-full"
                     />

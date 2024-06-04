@@ -17,7 +17,7 @@ export const Details = ({ id }: Props) => {
     }
 
     return (
-        <div className="p-6 w-80 divide-y">
+        <div className="p-6 w-[450px] divide-y">
             <Text
                 type="h3"
                 className="pb-2 text-center"

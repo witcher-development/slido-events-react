@@ -1,9 +1,9 @@
 import { z } from 'zod'
 
-import { createEventSchema } from './schema'
+import { createSchema } from './schema'
 
 
-export type CreateData = z.infer<typeof createEventSchema>
+export type CreateData = z.infer<typeof createSchema>
 export const getEmptyCreateData = (): CreateData => ({
     title: '',
     description: '',

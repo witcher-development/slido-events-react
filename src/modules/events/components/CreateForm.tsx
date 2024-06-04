@@ -1,16 +1,12 @@
 import Plus from 'src/assets/plus.svg?react'
-
 import { useForm } from 'src/hooks/useForm'
-
 import { Button, Text } from 'src/components'
 import { TextField, TextArea } from 'src/components/forms'
 
-import { EventsTypes, EventsModule } from 'src/modules/events'
+import { EventsTypes, EventsModule, EventsSchema } from 'src/modules/events'
 import { DrawerModule, DrawerComponents } from 'src/modules/drawer'
-
-import { createEventSchema } from '../schema'
-import { getEmptyCreateData } from '../types'
-
+import { useState } from 'react'
+import { uploadFile } from 'src/modules/bucket/module'
 
 
 type Props = {
@@ -18,16 +14,26 @@ type Props = {
 }
 
 export const CreateForm = ({ onSubmit: onSubmitFromProps }: Props) => {
-    const { register, handleSubmit, isValid } = useForm({
-        schema: createEventSchema,
-        defaultValues: getEmptyCreateData(),
+    const { register, handleSubmit, isValid, setValue } = useForm({
+        schema: EventsSchema.createSchema,
+        defaultValues: EventsTypes.getEmptyCreateData(),
         mode: 'onBlur'
     })
 
     const [drawerValue, setDrawerValue] = DrawerModule.useDrawer()
 
+    const [filePath, setFilePath] = useState("")
+    const handleFileChange = async (e) => {
+        const file = e.target.files[0];
+        const path = await uploadFile(file)
+        setFilePath(path)
+    }
+
     const onSubmit = (data: EventsTypes.CreateData) => {
-        EventsModule.create(data).then(onSubmitFromProps)
+        EventsModule.create({
+            ...data,
+            background: filePath
+        }).then(onSubmitFromProps)
     }
 
     return (
@@ -50,6 +56,8 @@ export const CreateForm = ({ onSubmit: onSubmitFromProps }: Props) => {
                             {...register('description')}
                             label="Description (optional)"
                         ></TextArea>
+
+                        <input type="file" onChange={handleFileChange} />
 
                         <Button 
                             type="submit"
