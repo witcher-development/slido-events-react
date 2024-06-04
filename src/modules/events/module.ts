@@ -33,7 +33,8 @@ export const useOne = (id: Event['id']) => {
 export const create = async (data: CreateFormData) => {
     let filePath = null
     if (data.background) {
-        filePath = await BucketModule.uploadFile(data.background[0])
+        const bucketPath = await BucketModule.uploadFile(data.background[0])
+        filePath = await BucketModule.getFileURL(bucketPath)
     }
 
     await post({
